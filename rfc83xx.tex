@@ -1,0 +1,18 @@
+\nonstopmode
+\documentclass{minimal}
+\usepackage[a4paper,top=2cm,bottom=2cm,left=4cm,right=4cm]{geometry}
+\usepackage{hyperref}
+\usepackage{xltxtra,fancyvrb,pgffor,bookmark}
+\setmonofont{TheSansMonoCondensed-Plain}
+\def^^L{\par}
+\def\aftereject{\aftergroup\afterejectI}
+\def\afterejectI{\aftergroup\clearpage}
+\begin{document}
+\foreach \n in {8300,...,8399}{%
+  \def\rfcfile{rfc/rfc\n.txt}
+  \IfFileExists{\rfcfile}{%
+    \pdfbookmark{RFC \n}{rfc\n}
+    \VerbatimInput[firstline=4,defineactive=\def^^L{\aftergroup\aftereject}]
+    {\rfcfile}
+}}
+\end{document}
